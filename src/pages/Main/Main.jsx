@@ -10,18 +10,15 @@ function Main() {
   const [news, setNews] = useState([])
 
   useEffect(() => {
-    (async () => {
-      const {data} = await api.news.getAll()
+    ;(async () => {
+      const { data } = await api.news.getAll()
       setNews(data.news)
     })()
   }, [])
 
   return (
     <main>
-      {
-        news.length > 0 &&
-        <NewsBanner item={news[0]} />
-      }
+      {news.length > 0 && <NewsBanner item={news[0]} />}
       <NewsList items={news} />
     </main>
   )

@@ -5,7 +5,7 @@ import Main from '@/pages/Main/Main'
 
 function App() {
   return (
-    <div className='wrapper'>
+    <div className="wrapper">
       <Header />
       <div className="container">
         <Main />
