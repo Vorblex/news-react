@@ -5,21 +5,27 @@ import NewsBanner from '@/components/NewsBanner/NewsBanner'
 import { useEffect, useState } from 'react'
 import api from '@/api'
 import NewsList from '@/components/NewsList/NewsList'
+import Skeleton from '@/components/Skeleton/Skeleton'
 
 function Main() {
   const [news, setNews] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  async function getNews() {
+    setLoading(true)
+    const { data } = await api.news.getAll()
+    setNews(data.news)
+    setLoading(false)
+  }
 
   useEffect(() => {
-    ;(async () => {
-      const { data } = await api.news.getAll()
-      setNews(data.news)
-    })()
+    getNews()
   }, [])
 
   return (
     <main>
-      {news.length > 0 && <NewsBanner item={news[0]} />}
-      <NewsList items={news} />
+      {!loading ? <NewsBanner item={news[0]} /> : <Skeleton type="banner" />}
+      {!loading ? <NewsList items={news} /> : <Skeleton count={10} type="item" />}
     </main>
   )
 }
