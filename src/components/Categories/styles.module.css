@@ -1,0 +1,32 @@
+.categories {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+  padding: 0 12px;
+  max-width: 800px;
+  margin: 0 auto;
+  margin-bottom: 12px;
+}
+
+.categories button {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 32px;
+  background-color: #f2f4f5;
+  cursor: pointer;
+}
+
+.categories button.active {
+  background-color: #e7e7ff;
+  color: #6b4eff;
+  cursor: auto;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}

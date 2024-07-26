@@ -3,6 +3,7 @@
   align-items: center;
   justify-content: center;
   gap: 3px;
+  margin-bottom: 12px;
 }
 
 .pagination button {
@@ -11,6 +12,7 @@
   padding: 6px;
   cursor: pointer;
   transition: background-color 0.3s;
+  border-radius: 32px;
 }
 
 .pagination button:hover {
