@@ -1,0 +1,34 @@
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+
+.pagination button {
+  background: none;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.pagination button:hover {
+  background: none;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
+  background-color: rgba(0, 255, 255, 0.519);
+}
+
+.pagination button.active {
+  background-color: rgba(0, 255, 255, 0.519);
+  cursor: auto;
+}
+
+.pagination button.arrow:disabled {
+  cursor: auto;
+}
+.pagination button.arrow:disabled:hover {
+  background: none;
+}
