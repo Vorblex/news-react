@@ -2,7 +2,7 @@ import formatTimeAgo from '@/helpers/formatTimeAgo'
 import styles from './styles.module.css'
 import Image from '@/components/Image/Image'
 
-const NewsBanner = ({ item }) => {
+const NewsBanner = ({ item = {} }) => {
   return (
     <div className={styles.banner}>
       <Image src={item.image} />
