@@ -9,15 +9,19 @@ import Skeleton from '@/components/Skeleton/Skeleton'
 import Pagination from '@/components/Pagination/Pagination'
 import { CATEGORIES_LIST, DEFAULT_CATEGORY } from '@/constants'
 import Categories from '@/components/Categories/Categories'
+import Search from '@/components/Search/Search'
+import useDebounce from '@/hooks/useDebounce'
 
 function Main() {
   const [news, setNews] = useState([])
   const [categories, setCategories] = useState([])
   const [selectedCategory, setSelectedCategory] = useState(DEFAULT_CATEGORY)
+  const [keywords, setKeywords] = useState('')
   const [loading, setLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState(1)
   const pageSize = 10
   const totalPages = 10
+  const debouncedKeywords = useDebounce(keywords)
 
   async function getCategories() {
     // const { data } = await api.news.getCategories()
@@ -27,14 +31,18 @@ function Main() {
 
   async function getNews() {
     setLoading(true)
-    const { data } = await api.news.get(currentPage, selectedCategory)
+    const { data } = await api.news.get({
+      currentPage,
+      selectedCategory,
+      keywords: debouncedKeywords,
+    })
     setNews(data.news)
     setLoading(false)
   }
 
   useEffect(() => {
     getNews()
-  }, [currentPage, selectedCategory])
+  }, [currentPage, selectedCategory, debouncedKeywords])
 
   useEffect(() => {
     getCategories()
@@ -49,6 +57,7 @@ function Main() {
       />
       <main>
         <div className="container">
+          <Search value={keywords} onChange={setKeywords} />
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}

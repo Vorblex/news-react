@@ -1,15 +1,21 @@
 import http from '@/http'
 import { DEFAULT_CATEGORY } from '@/constants'
 
-export const get = async (page_number = 1, selectedCategory, page_size = 10) => {
+export const get = async ({
+  currentPage = 1,
+  selectedCategory,
+  pageSize = 10,
+  keywords = null,
+}) => {
   const category = selectedCategory !== DEFAULT_CATEGORY ? selectedCategory : null
 
   try {
     return await http.get('search', {
       params: {
-        page_number,
-        page_size,
+        page_number: currentPage,
+        page_size: pageSize,
         category,
+        keywords,
       },
     })
   } catch (e) {
