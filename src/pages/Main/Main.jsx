@@ -7,68 +7,69 @@ import api from '@/api'
 import NewsList from '@/components/NewsList/NewsList'
 import Skeleton from '@/components/Skeleton/Skeleton'
 import Pagination from '@/components/Pagination/Pagination'
-import { CATEGORIES_LIST, DEFAULT_CATEGORY } from '@/constants'
+import { CATEGORIES_LIST, DEFAULT_CATEGORY, TOTAL_PAGES } from '@/constants'
 import Categories from '@/components/Categories/Categories'
 import Search from '@/components/Search/Search'
 import useDebounce from '@/hooks/useDebounce'
+import useFetch from '@/hooks/useFetch'
+import useFilters from '@/hooks/useFilters'
 
 function Main() {
-  const [news, setNews] = useState([])
   const [categories, setCategories] = useState([])
-  const [selectedCategory, setSelectedCategory] = useState(DEFAULT_CATEGORY)
-  const [keywords, setKeywords] = useState('')
-  const [loading, setLoading] = useState(true)
-  const [currentPage, setCurrentPage] = useState(1)
-  const pageSize = 10
-  const totalPages = 10
-  const debouncedKeywords = useDebounce(keywords)
+
+  const { filters, changeFiltersValue } = useFilters({
+    currentPage: 1,
+    selectedCategory: DEFAULT_CATEGORY,
+    keywords: '',
+  })
+  const debouncedKeywords = useDebounce(filters.keywords)
 
   async function getCategories() {
     // const { data } = await api.news.getCategories()
     // setCategories(data.categories)
-    setCategories([DEFAULT_CATEGORY, ...CATEGORIES_LIST])
+    setCategories(CATEGORIES_LIST)
   }
-
-  async function getNews() {
-    setLoading(true)
-    const { data } = await api.news.get({
-      currentPage,
-      selectedCategory,
-      keywords: debouncedKeywords,
-    })
-    setNews(data.news)
-    setLoading(false)
-  }
-
-  useEffect(() => {
-    getNews()
-  }, [currentPage, selectedCategory, debouncedKeywords])
 
   useEffect(() => {
     getCategories()
   }, [])
 
+  const {
+    data: newsData,
+    loading,
+    error,
+  } = useFetch(api.news.get, {
+    currentPage: filters.currentPage,
+    selectedCategory: filters.selectedCategory,
+    keywords: debouncedKeywords,
+  })
+
+  const news = newsData?.news
+
   return (
     <>
       <Categories
         categories={categories}
-        onSelect={setSelectedCategory}
-        selected={selectedCategory}
+        onSelect={(value) => changeFiltersValue('selectedCategory', value)}
+        selected={filters.selectedCategory}
       />
       <main>
         <div className="container">
-          <Search value={keywords} onChange={setKeywords} />
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={setCurrentPage}
+          <Search
+            value={filters.keywords}
+            onChange={(value) => changeFiltersValue('keywords', value)}
           />
-          {!loading ? <NewsBanner item={news[0]} /> : <Skeleton type="banner" />}
-          {!loading ? <NewsList items={news} /> : <Skeleton count={10} type="item" />}
           <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={setCurrentPage}
+            currentPage={filters.currentPage}
+            totalPages={TOTAL_PAGES}
+            onPageChange={(value) => changeFiltersValue('currentPage', value)}
+          />
+          <NewsBanner loading={loading} item={news?.length > 0 && news[0]} />
+          <NewsList loading={loading} items={news && news} />
+          <Pagination
+            currentPage={filters.currentPage}
+            totalPages={TOTAL_PAGES}
+            onPageChange={(value) => changeFiltersValue('currentPage', value)}
           />
         </div>
       </main>
