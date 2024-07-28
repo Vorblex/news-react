@@ -1,4 +1,3 @@
-import { DEFAULT_CATEGORY } from '@/constants'
 import { useState } from 'react'
 
 const useFilters = (initialState) => {

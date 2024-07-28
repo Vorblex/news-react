@@ -1,5 +1,3 @@
-import formatTimeAgo from '@/helpers/formatTimeAgo'
-import Image from '@/components/Image/Image'
 import styles from './styles.module.css'
 import NewsItem from '@/components/NewsItem/NewsItem'
 import withSceleton from '@/components/hoc/withSceleton'
