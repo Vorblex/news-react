@@ -18,6 +18,14 @@ export const get = async ({ currentPage = 1, selectedCategory, keywords }) => {
   }
 }
 
+export const getLatest = async () => {
+  try {
+    return await http.get('latest-news')
+  } catch (e) {
+    console.log(e)
+  }
+}
+
 export const getCategories = async () => {
   try {
     return await http.get('available/category')
