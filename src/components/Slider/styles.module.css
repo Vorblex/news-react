@@ -1,0 +1,19 @@
+.slider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.arrow {
+  background: none;
+  cursor: auto;
+  border: none;
+}
+
+.arrow:disabled {
+  cursor: auto;
+}
+.arrow:disabled:hover {
+  background: none;
+}

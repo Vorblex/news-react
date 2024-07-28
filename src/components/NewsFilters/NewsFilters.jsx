@@ -1,6 +1,7 @@
 import styles from './styles.module.css'
 import Categories from '@/components/Categories/Categories'
 import Search from '@/components/Search/Search'
+import Slider from '@/components/Slider/Slider'
 import { CATEGORIES_LIST } from '@/constants'
 import { useEffect, useState } from 'react'
 
@@ -18,11 +19,13 @@ const NewsFilters = ({ filters, changeFiltersValue }) => {
 
   return (
     <div className={styles.filters}>
-      <Categories
-        categories={categories}
-        onSelect={(value) => changeFiltersValue('selectedCategory', value)}
-        selected={filters.selectedCategory}
-      />
+      <Slider step={300}>
+        <Categories
+          categories={categories}
+          onSelect={(value) => changeFiltersValue('selectedCategory', value)}
+          selected={filters.selectedCategory}
+        />
+      </Slider>
       <Search
         value={filters.keywords}
         onChange={(value) => changeFiltersValue('keywords', value)}
