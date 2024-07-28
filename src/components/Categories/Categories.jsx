@@ -1,9 +1,10 @@
 import { DEFAULT_CATEGORY } from '@/constants'
 import styles from './styles.module.css'
+import { forwardRef } from 'react'
 
-const Categories = ({ categories = [], selected, onSelect }) => {
+const Categories = forwardRef(({ categories = [], selected, onSelect }, ref) => {
   return (
-    <div className={styles.categories}>
+    <div ref={ref} className={styles.categories}>
       <button
         type="button"
         onClick={() => onSelect(DEFAULT_CATEGORY)}
@@ -21,6 +22,8 @@ const Categories = ({ categories = [], selected, onSelect }) => {
       ))}
     </div>
   )
-}
+})
+
+Categories.displayName = 'Categories'
 
 export default Categories
