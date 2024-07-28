@@ -12,11 +12,11 @@ const Slider = ({ children, step = 250 }) => {
   }
   return (
     <div className={styles.slider}>
-      <button onClick={scrollLeft} className={styles.arrow}>
+      <button onClick={scrollLeft} className={styles.arrow} type="button">
         {'<'}
       </button>
       {React.cloneElement(children, { ref: sliderRef })}
-      <button onClick={scrollRight} className={styles.arrow}>
+      <button onClick={scrollRight} className={styles.arrow} type="button">
         {'>'}
       </button>
     </div>
