@@ -1,7 +1,6 @@
 import formatTimeAgo from '@/helpers/formatTimeAgo'
 import styles from './styles.module.css'
 import Image from '@/components/Image/Image'
-import withSceleton from '@/components/hoc/withSceleton'
 
 const NewsBanner = ({ item = {} }) => {
   return (
@@ -15,6 +14,4 @@ const NewsBanner = ({ item = {} }) => {
   )
 }
 
-const NewsBannerWithSkeleton = withSceleton(NewsBanner)
-
-export default NewsBannerWithSkeleton
+export default NewsBanner
