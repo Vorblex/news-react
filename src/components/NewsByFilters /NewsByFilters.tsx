@@ -7,6 +7,7 @@ import useDebounce from '@/hooks/useDebounce'
 import useFetch from '@/hooks/useFetch'
 import api from '@/api'
 import PaginationWrapper from '@/components/PaginationWrapper/PaginationWrapper'
+import { NewsApiResponse, ParamsType } from '@/interfaces'
 
 const NewsByFilters = () => {
   const { filters, changeFiltersValue } = useFilters({
@@ -20,8 +21,8 @@ const NewsByFilters = () => {
   const {
     data: newsData,
     loading,
-    error,
-  } = useFetch(api.news.get, {
+    // error,
+  } = useFetch<NewsApiResponse, ParamsType>(api.news.get, {
     ...filters,
     keywords: debouncedKeywords,
   })

@@ -1,4 +1,6 @@
-export const CATEGORIES_LIST = [
+import { CategoriesType } from '@/interfaces'
+
+export const CATEGORIES_LIST: CategoriesType[] = [
   'regional',
   'technology',
   'lifestyle',

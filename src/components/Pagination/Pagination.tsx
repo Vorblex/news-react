@@ -1,11 +1,14 @@
+import { IPaginationProps } from '@/interfaces'
 import styles from './styles.module.css'
 
-const Pagination = ({ currentPage, totalPages = 10, onPageChange }) => {
-  const getActiveClass = (index) => {
+type TDirections = 'prev' | 'next'
+
+const Pagination = ({ currentPage, totalPages = 10, onPageChange }: IPaginationProps) => {
+  const getActiveClass = (index: number) => {
     return currentPage === index + 1 ? styles.active : ''
   }
 
-  const onShiftPage = (direction) => {
+  const onShiftPage = (direction: TDirections) => {
     if (direction === 'prev' && currentPage > 1) {
       onPageChange(currentPage - 1)
     }

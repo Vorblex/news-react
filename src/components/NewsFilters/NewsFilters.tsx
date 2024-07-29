@@ -3,10 +3,16 @@ import Categories from '@/components/Categories/Categories'
 import Search from '@/components/Search/Search'
 import Slider from '@/components/Slider/Slider'
 import { CATEGORIES_LIST } from '@/constants'
+import { CategoriesType, IFilters } from '@/interfaces'
 import { useEffect, useState } from 'react'
 
-const NewsFilters = ({ filters, changeFiltersValue }) => {
-  const [categories, setCategories] = useState([])
+interface Props {
+  filters: IFilters
+  changeFiltersValue: (key: string, value: string | number | null) => void
+}
+
+const NewsFilters = ({ filters, changeFiltersValue }: Props) => {
+  const [categories, setCategories] = useState<CategoriesType[]>([])
   async function getCategories() {
     // const { data } = await api.news.getCategories()
     // setCategories(data.categories)
