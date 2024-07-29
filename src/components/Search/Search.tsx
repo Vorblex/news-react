@@ -1,6 +1,11 @@
 import styles from './styles.module.css'
 
-const Search = ({ value, onChange }) => {
+interface Props {
+  value: string
+  onChange: (value: string) => void
+}
+
+const Search = ({ value, onChange }: Props) => {
   return (
     <div className={styles.search}>
       <input

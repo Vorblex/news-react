@@ -1,8 +1,13 @@
 import styles from './styles.module.css'
 import withSceleton from '@/components/hoc/withSceleton'
 import NewsBanner from '@/components/NewsBanner/NewsBanner'
+import { INews } from '@/interfaces'
 
-const BannersList = ({ banners }) => {
+interface Props {
+  banners?: INews[]
+}
+
+const BannersList = ({ banners }: Props) => {
   return (
     <ul className={styles.banners}>
       {banners?.map((banner) => (
@@ -12,6 +17,6 @@ const BannersList = ({ banners }) => {
   )
 }
 
-const BannersListWithSkeleton = withSceleton(BannersList, 'banner', 10, 'row')
+const BannersListWithSkeleton = withSceleton<Props>(BannersList, 'banner', 10, 'row')
 
 export default BannersListWithSkeleton

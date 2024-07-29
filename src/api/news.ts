@@ -1,11 +1,13 @@
 import http from '@/http'
 import { DEFAULT_CATEGORY, PAGE_SIZE } from '@/constants'
+import { CategoriesApiResponse, NewsApiResponse, ParamsType } from '@/interfaces'
 
-export const get = async ({ currentPage = 1, selectedCategory, keywords }) => {
+export const get = async (params?: ParamsType): Promise<NewsApiResponse> => {
+  const { currentPage = 1, selectedCategory, keywords } = params || {}
   const category = selectedCategory !== DEFAULT_CATEGORY ? selectedCategory : null
 
   try {
-    return await http.get('search', {
+    const response = await http.get<NewsApiResponse>('search', {
       params: {
         page_number: currentPage,
         page_size: PAGE_SIZE,
@@ -13,23 +15,29 @@ export const get = async ({ currentPage = 1, selectedCategory, keywords }) => {
         keywords: keywords ? keywords : null,
       },
     })
+    return response.data
   } catch (e) {
     console.log(e)
+    return { news: [], page: 1, status: 'error' }
   }
 }
 
-export const getLatest = async () => {
+export const getLatest = async (): Promise<NewsApiResponse> => {
   try {
-    return await http.get('latest-news')
+    const response = await http.get<NewsApiResponse>('latest-news')
+    return response.data
   } catch (e) {
     console.log(e)
+    return { news: [], page: 1, status: 'error' }
   }
 }
 
-export const getCategories = async () => {
+export const getCategories = async (): Promise<CategoriesApiResponse> => {
   try {
-    return await http.get('available/category')
+    const response = await http.get<CategoriesApiResponse>('available/category')
+    return response.data
   } catch (e) {
     console.log(e)
+    return { categories: [], description: '', status: 'error' }
   }
 }

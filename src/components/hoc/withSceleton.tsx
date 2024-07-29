@@ -1,9 +1,19 @@
 import Skeleton from '@/components/Skeleton/Skeleton'
+import { DirectionType, SkeletonType } from '@/interfaces'
 
-function withSceleton(Component, type, count, direction) {
-  return function WithSceleton({ loading, ...props }) {
+type Props = {
+  loading: boolean
+}
+
+function withSceleton<P extends object>(
+  Component: React.ComponentType<P>,
+  type?: SkeletonType,
+  count?: number,
+  direction?: DirectionType,
+) {
+  return function WithSceleton({ loading, ...props }: Props & P) {
     return !loading ? (
-      <Component {...props} />
+      <Component {...(props as P)} />
     ) : (
       <Skeleton type={type} count={count} direction={direction} />
     )

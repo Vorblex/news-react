@@ -1,6 +1,6 @@
-import axios from 'axios'
+import axios, { AxiosInstance, AxiosStatic } from 'axios'
 
-const createHTTP = (http) => {
+const createHTTP = (http: AxiosStatic): AxiosInstance => {
   const instance = http.create({
     baseURL: import.meta.env.VITE_BASE_URL,
     params: {
